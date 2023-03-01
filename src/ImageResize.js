@@ -41,8 +41,6 @@ export default class ImageResize {
 
         // respond to clicks inside the editor
         this.quill.root.addEventListener('click', this.handleClick, false);
-		
-		this.quill.root.addEventListener('blur', this.handleFocusOut);
 
         this.quill.root.parentNode.style.position = this.quill.root.parentNode.style.position || 'relative';
 
@@ -86,12 +84,6 @@ export default class ImageResize {
 
         this.modules = [];
     };
-	
-	handleFocusOut = (evn) => {
-        if(this.img){
-            this.hideOverlay();
-        }
-    }
 
     handleClick = (evt) => {
         if (evt.target && evt.target.tagName && evt.target.tagName.toUpperCase() === 'IMG') {
@@ -136,6 +128,7 @@ export default class ImageResize {
 
         // Create and add the overlay
         this.overlay = document.createElement('div');
+        this.overlay.setAttribute("id", "quill-resize-overlay");
         Object.assign(this.overlay.style, this.options.overlayStyles);
 
         this.quill.root.parentNode.appendChild(this.overlay);
